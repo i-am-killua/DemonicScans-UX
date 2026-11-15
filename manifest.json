@@ -1,0 +1,86 @@
+{
+  "manifest_version": 3,
+  "name": "Demonicscans UX",
+  "version": "1.5.10",
+  "description": "A Chrome extension that redesigns and improves the user interface of Demonicscans, introducing a modern dark-and-orange theme, improved navigation, enhanced content browsing, and a custom comments interface.",
+  "permissions": [
+    "declarativeNetRequestWithHostAccess",
+    "webNavigation",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://demonicscans.org/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://demonicscans.org/*"
+      ],
+      "js": [
+        "style-loader.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://demonicscans.org/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://demonicscans.org/*"
+      ],
+      "js": [
+        "assets/homepage-redesign.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://demonicscans.org/advanced.php*"
+      ],
+      "js": [
+        "assets/advanced-select.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://demonicscans.org/bookmarks.php*"
+      ],
+      "js": [
+        "assets/bookmarks-page.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/comments_widget.html",
+        "assets/comments_widget.js",
+        "assets/comments_gif_picker.js",
+        "assets/comments_widget.css",
+        "assets/homepage-redesign.css",
+        "assets/homepage-redesign.js",
+        "assets/top-navigation.css",
+        "style-loader.js",
+        "assets/terms-and-conditions.css",
+        "assets/advanced-search.css",
+        "assets/advanced-select.js",
+        "assets/bookmarks-page.css",
+        "assets/bookmarks-page.js"
+      ],
+      "matches": [
+        "https://demonicscans.org/*"
+      ]
+    }
+  ]
+}
