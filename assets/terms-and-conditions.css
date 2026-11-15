@@ -1,0 +1,115 @@
+/* Demonicscans Terms & Conditions page — warm dark/orange theme */
+body.ds-terms-page,
+body.ds-terms-page html {
+  background: #120f0c !important;
+  color: #fbf6ef !important;
+}
+body.ds-terms-page {
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif !important;
+}
+body.ds-terms-page > h4 {
+  width: min(1288px, 94%);
+  box-sizing: border-box;
+  margin: 18px auto 0 !important;
+  padding: 11px 16px !important;
+  border: 1px solid #75451f;
+  border-radius: 8px;
+  background: #382516 !important;
+  color: #ffc45c !important;
+  font-size: 13px !important;
+  line-height: 1.55;
+  font-weight: 600;
+}
+#resultbox{font-size: 14px!important;}
+
+body.ds-terms-page .ds-terms-shell {
+  width: min(1000px, 94%);
+  margin: 0 auto;
+  padding: 26px 0 64px !important;
+  box-sizing: border-box;
+}
+body.ds-terms-page .ds-terms-brand {
+  margin: 8px auto 24px !important;
+  text-align: center;
+}
+body.ds-terms-page .ds-terms-brand a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: .96;
+}
+body.ds-terms-page .ds-terms-brand img:first-child {
+  width: 44px !important;
+  height: 44px !important;
+  object-fit: contain;
+}
+body.ds-terms-page .ds-terms-brand img:last-child {
+  width: 160px !important;
+  height: auto !important;
+  object-fit: contain;
+}
+body.ds-terms-page #login-container.ds-terms-card {
+  width: 100% !important;
+  max-width: 1000px !important;
+  margin: 0 auto !important;
+  padding: clamp(22px, 4vw, 38px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden;
+  border: 1px solid #3a3027 !important;
+  border-radius: 12px !important;
+  background: #1f1a16 !important;
+  color: #fbf6ef !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.22);
+}
+body.ds-terms-page #login-container.ds-terms-card > h1 {
+  margin: 0 0 24px !important;
+  padding: 0 0 17px !important;
+  border-bottom: 1px solid #3a3027;
+  color: #fff !important;
+  font-size: clamp(23px, 3vw, 30px) !important;
+  font-weight: 800 !important;
+  line-height: 1.25;
+  letter-spacing: -.5px;
+  text-align: left;
+}
+body.ds-terms-page .ds-terms-content {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+body.ds-terms-page .ds-terms-content section {
+  margin: 0;
+  padding: 0 0 20px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+body.ds-terms-page .ds-terms-content section:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+body.ds-terms-page .ds-terms-content h2 {
+  margin: 0 0 9px !important;
+  color: #ffad45 !important;
+  font-size: 17px !important;
+  font-weight: 750 !important;
+  line-height: 1.4;
+}
+body.ds-terms-page .ds-terms-content p {
+  margin: 0 !important;
+  color: #d4c9bd !important;
+  font-size: 14px !important;
+  font-weight: 400;
+  line-height: 1.85 !important;
+  overflow-wrap: anywhere;
+}
+body.ds-terms-page a { transition: color .18s ease, opacity .18s ease; }
+body.ds-terms-page a:hover { color: #ffad45 !important; }
+@media (max-width: 600px) {
+  body.ds-terms-page .ds-terms-shell { width: 94%; padding: 18px 0 40px !important; }
+  body.ds-terms-page .ds-terms-brand { margin-bottom: 18px !important; }
+  body.ds-terms-page #login-container.ds-terms-card { padding: 20px 17px !important; border-radius: 9px !important; }
+  body.ds-terms-page .ds-terms-content { gap: 18px; }
+  body.ds-terms-page .ds-terms-content p { font-size: 13px !important; line-height: 1.75 !important; }
+  body.ds-terms-page > h4 { font-size: 12px !important; }
+}

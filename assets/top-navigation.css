@@ -1,0 +1,215 @@
+/* ===== MangaDemon replacement top navigation ===== */
+.ds-topbar,
+.ds-topbar * { box-sizing: border-box; }
+.ds-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+  min-height: 80px;
+  background: linear-gradient(110deg, #823417 0%, #ff8c00 45%, #823417 100%);
+  border-bottom: 1px solid rgba(255,255,255,.18);
+  color: #f4f3f8;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.ds-topbar-inner {
+  width: min(100% - 48px, 1420px);
+  min-height: 79px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.ds-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  flex: 0 0 auto;
+  color: #f7f5fa !important;
+  text-decoration: none !important;
+  min-width: 205px;
+}
+.ds-brand-logo {
+  display: block;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.ds-brand-copy { display: flex; flex-direction: column; line-height: 1.05; }
+.ds-brand-copy strong {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.7px;
+  white-space: nowrap;
+}
+.ds-brand-copy strong span { color: #fff; }
+.ds-brand-copy small {
+  margin-top: 5px;
+  color: #85818e;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.ds-primary-links {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+}
+.ds-primary-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 13px;
+  color: rgba(255,255,255,.86) !important;
+  text-decoration: none !important;
+  font-size: 14px;
+  font-weight: 650;
+  transition: color .18s ease, background .18s ease;
+}
+.ds-primary-links a:hover,
+.ds-primary-links a.is-active {
+  color: #fff !important;
+  background: rgba(91, 43, 12, .28);
+}
+.ds-nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  flex: 0 0 auto;
+}
+.ds-nav-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: clamp(190px, 19vw, 245px);
+  height: 39px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 13px;
+  background: rgba(91, 43, 12, .24);
+}
+.ds-nav-search-icon { display: flex; flex: 0 0 auto; color: rgba(255,255,255,.76); }
+.ds-nav-search-icon svg {
+  width: 17px; height: 17px; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round;
+}
+.ds-nav-search #header-search-input {
+  width: 100% !important;
+  min-width: 0;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 0 0 9px !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #fff !important;
+  font-size: 13px !important;
+}
+.ds-nav-search #header-search-input::placeholder { color: rgba(255,255,255,.76); opacity: 1; }
+.ds-nav-search #resultbox {
+  position: absolute !important;
+  z-index: 10002;
+  top: calc(100% + 9px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: max(100%, 280px) !important;
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid #34313f;
+  border-radius: 12px;
+  background: #191821;
+  box-shadow: 0 16px 40px #0008;
+}
+.ds-icon-button,
+.ds-profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 13px;
+  background: rgba(91, 43, 12, .24);
+  color: #e9e7ef !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+.ds-icon-button:hover,
+.ds-profile-trigger:hover { background: rgba(91, 43, 12, .40); border-color: rgba(255,255,255,.38); }
+.ds-discord svg { width: 21px; height: 21px; }
+.ds-profile { position: relative; }
+.ds-profile-trigger { width: auto; min-width: 66px; gap: 8px; padding: 0 9px; }
+.ds-profile-avatar {
+  display: grid; place-items: center; width: 25px; height: 25px;
+  border-radius: 8px; background: linear-gradient(145deg,#ffb04a,#d96b16);
+  color: #fff;
+}
+.ds-profile-avatar svg { width: 17px; height: 17px; fill: currentColor; stroke: none; display: block; }
+.ds-profile-chevron { width: 14px; height: 14px; fill: none; stroke: #a8a5b0; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ds-profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10003;
+  min-width: 175px;
+  padding: 6px;
+  border: 1px solid #302d3a;
+  border-radius: 13px;
+  background: #9a4b16;
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 18px 45px #57270d66;
+}
+.ds-profile-menu[hidden] { display: none !important; }
+.ds-profile-menu a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #e7e4ed !important;
+  text-decoration: none !important;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ds-profile-menu a:hover { background: rgba(42, 13, 72, .42); color: #fff !important; }
+@media (max-width: 1100px) {
+  .ds-topbar-inner { width: calc(100% - 28px); gap: 15px; }
+  .ds-brand { min-width: 175px; }
+  .ds-primary-links a { padding: 0 9px; font-size: 13px; }
+  .ds-nav-search { width: 190px; }
+}
+@media (max-width: 820px) {
+  .ds-topbar-inner { flex-wrap: wrap; gap: 10px 14px; padding: 10px 0; }
+  .ds-brand { min-width: 0; flex: 1 1 auto; }
+  .ds-nav-actions { order: 2; }
+  .ds-primary-links { order: 3; flex: 1 0 100%; overflow-x: auto; padding-bottom: 2px; }
+  .ds-primary-links a { min-height: 34px; }
+  .ds-nav-search { width: min(42vw, 220px); }
+}
+@media (max-width: 480px) {
+  .ds-topbar-inner { width: calc(100% - 20px); }
+  .ds-brand-copy strong { font-size: 17px; }
+  .ds-brand-copy small { font-size: 8px; letter-spacing: 1.4px; }
+  .ds-brand-logo { flex-basis: 36px; width: 36px; height: 36px; }
+  .ds-nav-actions { gap: 6px; }
+  .ds-nav-search { width: min(42vw, 170px); }
+  .ds-icon-button { width: 38px; height: 38px; }
+  .ds-profile-trigger { min-width: 48px; height: 38px; }
+}
+
+
+/* Keep the replacement navigation typography consistent on every page,
+   including Advanced Search where the homepage stylesheet is not loaded. */
+.ds-topbar,
+.ds-topbar * {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif !important;
+}

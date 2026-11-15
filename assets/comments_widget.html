@@ -1,0 +1,164 @@
+<center style="margin-bottom:20px;">
+<br/>
+<div id="discuscontainer">
+<link href="/comments_widget.css?v=20261113purple1" rel="stylesheet"/>
+<section aria-label="Chapter discussion" class="cw widget" data-chapter="76283" id="cw-comments"><style data-cw-rules-style="1">
+/* Comment rules dialog */
+#cw-rules-dialog .cw-rules-content {
+  color: inherit;
+  line-height: 1.65;
+}
+#cw-rules-dialog .cw-rules-content > p {
+  margin: 0 0 14px;
+}
+#cw-rules-dialog .cw-rules-content ol {
+  margin: 0;
+  padding-left: 22px;
+}
+#cw-rules-dialog .cw-rules-content li {
+  margin: 0 0 10px;
+  padding-left: 4px;
+}
+#cw-rules-dialog .cw-rules-content li strong {
+  color: var(--cw-accent, #f28c28);
+}
+#cw-rules-dialog .cw-rules-note {
+  margin-top: 16px;
+  opacity: .82;
+  font-size: .92em;
+}
+#cw-rules-open {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--cw-accent, #f28c28);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+#cw-rules-open:hover { filter: brightness(1.15); }
+</style>
+<header class="widget-head">
+<div><p class="eyebrow">THE READING ROOM</p><div class="title-line"><h2 id="cw-title">Discussion</h2><span class="count" id="cw-total">—</span></div></div>
+<div class="head-actions">
+<button aria-label="Notifications" class="icon-button" hidden="" id="cw-notifications" type="button"><svg aria-hidden="true" class="icon"><use href="#cw-i-bell"></use></svg><span class="cw-notification-count" id="cw-notification-count"></span></button>
+</div>
+</header>
+<section aria-label="Chapter reactions" class="reactions-band">
+<div class="reactions-copy"><strong>What did you think of this chapter?</strong><small id="cw-reaction-total">0 reactions</small></div>
+<div class="reactions">
+<button aria-label="Upvote" aria-pressed="false" class="reaction" data-reaction="1" type="button"><span aria-hidden="true" class="emoji">👍</span><b class="number">0</b><small>Upvote</small></button>
+<button aria-label="Funny" aria-pressed="false" class="reaction" data-reaction="5" type="button"><span aria-hidden="true" class="emoji">😂</span><b class="number">0</b><small>Funny</small></button>
+<button aria-label="Love" aria-pressed="false" class="reaction" data-reaction="2" type="button"><span aria-hidden="true" class="emoji">❤️</span><b class="number">0</b><small>Love</small></button>
+<button aria-label="Surprised" aria-pressed="false" class="reaction" data-reaction="6" type="button"><span aria-hidden="true" class="emoji">😮</span><b class="number">0</b><small>Surprised</small></button>
+<button aria-label="Angry" aria-pressed="false" class="reaction" data-reaction="3" type="button"><span aria-hidden="true" class="emoji">😠</span><b class="number">0</b><small>Angry</small></button>
+<button aria-label="Sad" aria-pressed="false" class="reaction" data-reaction="4" type="button"><span aria-hidden="true" class="emoji">😢</span><b class="number">0</b><small>Sad</small></button>
+</div>
+</section>
+<div class="discussion-toolbar">
+<div class="comment-total"><span id="cw-total-label">Comments</span></div>
+<div class="toolbar-controls">
+<div aria-label="Sort comments" class="sort-tabs" role="group">
+<button aria-pressed="true" data-sort="best" type="button">Best</button>
+<button aria-pressed="false" data-sort="newest" type="button">New</button>
+<button aria-pressed="false" data-sort="oldest" type="button">Old</button>
+</div>
+<div class="tools-right"><label class="search"><svg aria-hidden="true" class="icon"><use href="#cw-i-search"></use></svg><input aria-label="Search this discussion" id="cw-search" maxlength="100" placeholder="Find a comment" type="search"/></label><button aria-label="Refresh comments" class="manual-refresh" id="cw-refresh" type="button"><svg aria-hidden="true" class="icon"><use href="#cw-i-refresh"></use></svg></button></div>
+</div>
+</div>
+<div class="composer">
+<div class="compose-top"><div class="identity"><span aria-hidden="true" id="cw-viewer-avatar"><span class="cw-avatar avatar">R</span></span><div><span class="compose-name">Join the conversation</span><div class="compose-note" id="cw-viewer-name">Welcome, reader</div></div></div><button aria-haspopup="dialog" class="quiet-btn" hidden="" id="cw-profile" type="button">Edit Profile</button></div>
+<div id="cw-composer"><p class="cw-empty"><a href="/signin.php">Sign in</a> or <a href="/signup.php">create an account</a> to join the discussion.</p></div>
+<div class="comment-rules"><span>By commenting, you agree to follow our comment rules.</span><button aria-controls="cw-rules-dialog" aria-haspopup="dialog" class="rules-label" id="cw-rules-open" type="button">Comment rules</button></div>
+</div>
+<button class="new-comments" id="cw-new-comments" type="button"><svg aria-hidden="true" class="icon"><use href="#cw-i-refresh"></use></svg> Show latest comments</button>
+<p aria-live="polite" class="cw-status" id="cw-status" role="status"></p>
+<div aria-busy="true" aria-label="Comment threads" id="cw-list"></div>
+<button class="load-more" hidden="" id="cw-more" type="button">More from the discussion <svg aria-hidden="true" class="icon"><use href="#cw-i-chevron"></use></svg></button>
+<footer class="widget-footer"><div class="cw-aux"><a href="/mycomments.php">Your Last 100 Comments</a><button id="cw-muted" type="button">Muted readers</button></div><p>No automatic refreshing. Read at your own pace.</p></footer>
+<noscript>Please enable JavaScript to read and post comments.</noscript>
+<dialog aria-labelledby="cw-dialog-title" class="cw-dialog" id="cw-dialog"><div class="dialog-head"><h3 id="cw-dialog-title"></h3><button aria-label="Close dialog" id="cw-dialog-close" type="button">×</button></div><div id="cw-dialog-body"></div></dialog>
+<dialog aria-labelledby="cw-rules-title" class="cw-dialog" id="cw-rules-dialog">
+<div class="dialog-head">
+<h3 id="cw-rules-title">Comment rules</h3>
+<button aria-label="Close comment rules" id="cw-rules-close" type="button">×</button>
+</div>
+<div class="cw-rules-content">
+<p>Help keep the discussion welcoming and useful for everyone.</p>
+<ol>
+<li><strong>Be respectful.</strong> No harassment, hate speech, threats, personal attacks, or targeted abuse.</li>
+<li><strong>Keep it relevant.</strong> Discuss the chapter and series. Avoid spam, repeated messages, advertising, and unrelated promotions.</li>
+<li><strong>Handle spoilers carefully.</strong> Do not reveal major plot points from later chapters. Use spoiler formatting when it is available.</li>
+<li><strong>No explicit or illegal content.</strong> Do not post sexually explicit material, malware, phishing links, or links to stolen personal content.</li>
+<li><strong>Protect privacy.</strong> Never share anyone's private information, including your own address, phone number, passwords, or account details.</li>
+<li><strong>Use reactions and reports responsibly.</strong> Do not abuse likes, reports, or mute tools to target other readers.</li>
+<li><strong>No impersonation or ban evasion.</strong> Do not pretend to be another user, staff member, or creator, or use alternate accounts to bypass moderation.</li>
+</ol>
+<p class="cw-rules-note">Comments that break these rules may be removed, and accounts may be restricted or suspended. Repeated or serious violations may result in a permanent ban.</p>
+</div>
+<div class="dialog-actions">
+<button class="primary" id="cw-rules-done" type="button">Got it</button>
+</div>
+</dialog><svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
+<symbol id="cw-i-crown" viewbox="0 0 24 24"><path d="m3 7 5 4 4-6 4 6 5-4-2 11H5L3 7Zm3 14h12"></path></symbol>
+<symbol id="cw-i-spark" viewbox="0 0 24 24"><path d="m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z"></path></symbol>
+<symbol id="cw-i-heart" viewbox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"></path></symbol>
+<symbol id="cw-i-reply" viewbox="0 0 24 24"><path d="m9 5-7 6 7 6v-4c7-1 10 2 13 6-1-8-5-10-13-10V5Z"></path></symbol>
+<symbol id="cw-i-chevron" viewbox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></symbol>
+<symbol id="cw-i-bell" viewbox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M9 21h6"></path></symbol>
+<symbol id="cw-i-info" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6m0-10v.1"></path></symbol>
+<symbol id="cw-i-refresh" viewbox="0 0 24 24"><path d="M20 7a9 9 0 1 0 1 9M20 2v6h-6"></path></symbol>
+<symbol id="cw-i-search" viewbox="0 0 24 24"><circle cx="10" cy="10" r="6"></circle><path d="m15 15 6 6"></path></symbol>
+<symbol id="cw-i-pin" viewbox="0 0 24 24"><path d="m16 3 5 5-4 2-3 6-2-2-5 7 3-9-2-2 6-3 2-4Z"></path></symbol>
+<symbol id="cw-i-send" viewbox="0 0 24 24"><path d="m3 3 18 9-18 9 4-9-4-9Zm4 9h14"></path></symbol>
+<symbol id="cw-i-collapse" viewbox="0 0 24 24"><path d="M5 12h14"></path></symbol>
+<symbol id="cw-i-expand" viewbox="0 0 24 24"><path d="M5 12h14M12 5v14"></path></symbol>
+</defs></svg>
+<dialog aria-labelledby="cw-gif-title" id="cw-gif-dialog">
+<div class="dialog-head"><h2 id="cw-gif-title">Find your reaction.</h2><button aria-label="Close GIF picker" data-close="" type="button">×</button></div>
+<p>Pick a GIF for that panel you cannot put into words.</p>
+<div aria-label="GIF source" class="gif-tabs" role="tablist"><button aria-controls="cw-gif-browse-panel" aria-selected="true" data-gif-tab="browse" id="cw-gif-browse-tab" role="tab" type="button">Browse GIFs</button><button aria-controls="cw-gif-link-panel" aria-selected="false" data-gif-tab="link" id="cw-gif-link-tab" role="tab" tabindex="-1" type="button">Paste a link</button></div>
+<div aria-labelledby="cw-gif-browse-tab" id="cw-gif-browse-panel" role="tabpanel">
+<label class="gif-search"><svg aria-hidden="true" class="icon"><use href="#cw-i-search"></use></svg><input aria-label="Search preset GIFs" autocomplete="off" id="cw-gif-search" maxlength="80" placeholder="Search anime, character, or reaction..." type="search"/></label>
+<div aria-label="GIF categories" class="gif-categories" id="cw-gif-categories" role="group"></div>
+<div class="gif-results-header"><span aria-live="polite" id="cw-gif-results-count" role="status"></span><button aria-pressed="true" id="cw-gif-motion" type="button">Pause previews</button></div>
+<div class="gif-library-status" id="cw-gif-library-status" role="status"></div>
+<div aria-busy="false" aria-label="Preset GIFs" class="gif-grid" id="cw-gif-grid"></div>
+<p aria-live="polite" class="gif-scroll-status" id="cw-gif-scroll-status" role="status"></p>
+<div class="gif-source"><span>Scroll for more. Only visible previews load.</span><a href="https://giphy.com/explore/anime-reaction" rel="noopener noreferrer" target="_blank">GIFs via GIPHY</a></div>
+</div>
+<div aria-labelledby="cw-gif-link-tab" hidden="" id="cw-gif-link-panel" role="tabpanel"><form id="cw-gif-form" novalidate="">
+<label for="cw-gif-url">GIF URL</label><input aria-describedby="cw-gif-error" autocomplete="off" id="cw-gif-url" maxlength="400" placeholder="https://example.com/reaction.gif" type="url"/><span class="gif-example">Use an http:// or https:// link ending in .gif.</span>
+<div class="dialog-actions"><button class="quiet-btn" data-close="" type="button">Cancel</button><button class="primary" id="cw-gif-insert" type="submit">Insert GIF</button></div>
+</form></div>
+<p class="field-error" id="cw-gif-error" role="alert"></p>
+</dialog><script>
+(() => {
+  const dialog = document.getElementById('cw-rules-dialog');
+  const openButton = document.getElementById('cw-rules-open');
+  const closeButtons = [
+    document.getElementById('cw-rules-close'),
+    document.getElementById('cw-rules-done')
+  ];
+  if (!dialog || !openButton) return;
+
+  openButton.addEventListener('click', () => {
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+  });
+
+  closeButtons.forEach(button => button?.addEventListener('click', () => {
+    if (typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+  }));
+
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) dialog.close?.();
+  });
+})();
+</script></section>
+<script defer="" src="/comments_gif_picker.js?v=20261113purple1"></script>
+<script defer="" src="/comments_widget.js?v=20261113purple1"></script>
+</div>
+</center>
