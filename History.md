@@ -368,3 +368,10 @@ This release consolidates the mobile and interaction improvements made after v1.
 - Added explicit incidental-word substitutions such as `Cassie` → `C@ssie` to reduce false-positive masking.
 - The dictionary is now bundled and loaded locally; removed the runtime dictionary fetch and page-message bridge, eliminating external dictionary CORS/network dependencies.
 - Preserved the existing `Remove Profanity` button placement, comment editing flow, and manual review before posting.
+
+
+## Project documentation and release automation
+
+- Simplified `README.md` into a short project overview, feature-category list, installation guide, development test command, and project map.
+- Added `Features.md` as the detailed guide to homepage discovery, navigation/search, browsing/bookmarks, comments and moderation, chapter reader controls, and responsive design.
+- Added `.github/workflows/release-zip.yml`. When a GitHub Release is published with a tag matching `vX.Y.0` (for example, `v1.7.0`), GitHub Actions validates the tag, packages the extension, checks the ZIP archive, and uploads it to that release. Other version formats, including patch releases such as `v1.6.4`, are skipped.
