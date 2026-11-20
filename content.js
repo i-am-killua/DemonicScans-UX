@@ -4,13 +4,17 @@
   const SITE_ORIGIN = 'https://demonicscans.org';
   const TARGET_PATHS = [
     /^\/title\/[^/?#]+\/$/,
-    /^\/title\/[^/?#]+\/chapter\/[^/?#]+\/1\/?$/
+    /^\/title\/[^/?#]+\/chapter\/[^/?#]+\/1\/?$/,
+    // Manga detail pages (e.g. /manga/Absolute-Regression) also host
+    // the series discussion and should use the local comments interface.
+    /^\/manga(?:\/|$)/
   ];
 
   if (location.origin !== SITE_ORIGIN ||
       !TARGET_PATHS.some(pattern => pattern.test(location.pathname))) {
     return;
   }
+
 
   let replacementStarted = false;
   let observer;
@@ -81,6 +85,8 @@
       addStylesheet();
 
       // Preserve dependency order: the GIF picker registers its API before the widget uses it.
+      await loadScript('assets/profanity.js');
+      await loadScript('assets/profanity-dictionary.js');
       await loadScript('assets/comments_gif_picker.js');
       await loadScript('assets/comments_widget.js');
 

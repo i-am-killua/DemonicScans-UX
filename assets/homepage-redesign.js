@@ -113,9 +113,22 @@
     if (oldSearch) {
       oldSearch.placeholder = 'Search titles, genres...';
       oldSearch.setAttribute('aria-label', 'Search titles and genres');
-      search.append(oldSearch);
+      oldSearch.setAttribute('autocomplete', 'off');
+
+      // Keep the original form around the input. Moving only the input out of
+      // its form can break the site's submit/autocomplete behaviour and leave
+      // the mobile search looking active while its original controls are detached.
+      const originalForm = oldSearch.closest('form');
+      if (originalForm && oldNav.contains(originalForm)) {
+        search.append(originalForm);
+        if (oldResults && !originalForm.contains(oldResults)) search.append(oldResults);
+      } else {
+        search.append(oldSearch);
+        if (oldResults) search.append(oldResults);
+      }
+    } else if (oldResults) {
+      search.append(oldResults);
     }
-    if (oldResults) search.append(oldResults);
     search.prepend(searchIcon);
 
     const header = document.createElement('header');
@@ -126,6 +139,7 @@
           <img class="ds-brand-logo" src="https://demonicscans.org/img/demon-logo-sm.png" alt="Demonicscans logo" width="40" height="40">
           <span class="ds-brand-copy"><strong>Manga<span>Demon</span></strong></span>
         </a>
+        <div class="ds-mobile-panel" id="ds-mobile-panel">
         <nav class="ds-primary-links" aria-label="Main navigation">
           <a href="/index.php" data-route="/">Home</a>
           <a href="/advanced.php">Browse</a>
@@ -134,13 +148,16 @@
           <a href="/terms-and-conditions.php">TOS</a>
           ${loggedIn ? '<a href="/bookmarks.php">Bookmarks</a>' : ''}
         </nav>
-        <div class="ds-nav-actions">
-          <div class="ds-search-slot"></div>
-          <a class="ds-icon-button ds-discord" href="https://discord.gg/pK3bUxdEhR" target="_blank" rel="noopener noreferrer" aria-label="Join Discord" title="Discord">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.7 5.2A18.4 18.4 0 0 0 15.2 3.8l-.6 1.2a16.7 16.7 0 0 0-5.2 0l-.6-1.2a18.4 18.4 0 0 0-4.5 1.4C1.5 9.4.7 13.5 1.1 17.5a18.2 18.2 0 0 0 5.5 2.8l1.2-1.9-1.9-.9.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4-1.9.9 1.2 1.9a18.2 18.2 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.4-12.3ZM8.7 15.1c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z"/></svg>
-          </a>
+          <div class="ds-mobile-tools">
+            <div class="ds-search-slot"></div>
+            <a class="ds-icon-button ds-discord" href="https://discord.gg/pK3bUxdEhR" target="_blank" rel="noopener noreferrer" aria-label="Join Discord" title="Discord">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.7 5.2A18.4 18.4 0 0 0 15.2 3.8l-.6 1.2a16.7 16.7 0 0 0-5.2 0l-.6-1.2a18.4 18.4 0 0 0-4.5 1.4C1.5 9.4.7 13.5 1.1 17.5a18.2 18.2 0 0 0 5.5 2.8l1.2-1.9-1.9-.9.5-.4c3.7 1.7 7.7 1.7 11.4 0l.5.4-1.9.9 1.2 1.9a18.2 18.2 0 0 0 5.5-2.8c.5-4.6-.8-8.7-3.4-12.3ZM8.7 15.1c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="ds-header-actions">
           <div class="ds-profile">
-            <button class="ds-profile-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <button class="ds-profile-trigger" type="button" aria-label="Profile menu" aria-haspopup="true" aria-expanded="false">
               <span class="ds-profile-avatar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="4"></circle><path d="M3.5 21.5c0-4.7 3.8-8 8.5-8s8.5 3.3 8.5 8v.5h-17z"></path></svg></span>
               <svg class="ds-profile-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"></path></svg>
             </button>
@@ -151,6 +168,10 @@
               <a href="/premium.php">Remove Ads</a>
             </div>
           </div>
+          <button class="ds-menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="ds-mobile-panel" aria-expanded="false">
+            <svg class="ds-menu-open-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <svg class="ds-menu-close-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+          </button>
         </div>
       </div>`;
 
@@ -166,6 +187,27 @@
       }
     });
 
+    const navToggle = $('.ds-menu-toggle', header);
+    const mobilePanel = $('.ds-mobile-panel', header);
+    navToggle?.addEventListener('click', () => {
+      const open = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!open));
+      navToggle.setAttribute('aria-label', open ? 'Open navigation menu' : 'Close navigation menu');
+      mobilePanel?.classList.toggle('is-open', !open);
+    });
+
+    // If another mobile control or browser autofill focuses search, ensure its
+    // collapsible parent is visible before the keyboard interaction continues.
+    const navSearchInput = $('#header-search-input', header);
+    navSearchInput?.addEventListener('focus', () => {
+      if (window.matchMedia('(max-width: 820px)').matches &&
+          !mobilePanel?.classList.contains('is-open')) {
+        mobilePanel?.classList.add('is-open');
+        navToggle?.setAttribute('aria-expanded', 'true');
+        navToggle?.setAttribute('aria-label', 'Close navigation menu');
+      }
+    });
+
     const trigger = $('.ds-profile-trigger', header);
     const menu = $('.ds-profile-menu', header);
     trigger?.addEventListener('click', () => {
@@ -178,11 +220,19 @@
         trigger?.setAttribute('aria-expanded', 'false');
         if (menu) menu.hidden = true;
       }
+      if (!event.target.closest('.ds-mobile-panel, .ds-menu-toggle')) {
+        navToggle?.setAttribute('aria-expanded', 'false');
+        navToggle?.setAttribute('aria-label', 'Open navigation menu');
+        mobilePanel?.classList.remove('is-open');
+      }
     });
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
         trigger?.setAttribute('aria-expanded', 'false');
         if (menu) menu.hidden = true;
+        navToggle?.setAttribute('aria-expanded', 'false');
+        navToggle?.setAttribute('aria-label', 'Open navigation menu');
+        mobilePanel?.classList.remove('is-open');
       }
     });
   }
@@ -216,45 +266,38 @@
     strip.dataset.dsDragReady = '1';
     strip.classList.add('ds-drag-scroll');
 
-    // Artwork should never enter the browser's native image/link drag mode.
-    // Links still receive normal left-clicks unless the pointer actually moves.
-    strip.querySelectorAll('img').forEach(image => {
-      image.draggable = false;
-      image.setAttribute('draggable', 'false');
+    // Disable browser-native image/link dragging. Native HTML drag gestures
+    // can steal pointer movement when a swipe begins on a comic tile (but not
+    // when it begins in the empty gap), making tile-started drags feel rigid.
+    strip.querySelectorAll('img, a').forEach(element => {
+      element.draggable = false;
+      element.setAttribute('draggable', 'false');
     });
 
     let pointerId = null;
     let startX = 0;
+    let startY = 0;
     let startScroll = 0;
     let lastX = 0;
     let lastTime = 0;
     let velocity = 0;
     let moved = false;
-    let dragFrame = 0;
+    let axis = null;
     let inertiaFrame = 0;
-    let desiredScroll = 0;
+    let suppressNextClick = false;
+    let suppressTimer = 0;
+    let pressedCard = null;
 
     const stopMotion = () => {
-      if (dragFrame) cancelAnimationFrame(dragFrame);
       if (inertiaFrame) cancelAnimationFrame(inertiaFrame);
-      dragFrame = inertiaFrame = 0;
+      inertiaFrame = 0;
     };
 
-    // Smoothly follow the pointer rather than abruptly assigning scrollLeft.
-    const animateDrag = () => {
-      const difference = desiredScroll - strip.scrollLeft;
-      if (Math.abs(difference) < 0.5) {
-        strip.scrollLeft = desiredScroll;
-        dragFrame = 0;
-        return;
-      }
-      strip.scrollLeft += difference * 0.34;
-      dragFrame = requestAnimationFrame(animateDrag);
-    };
-
+    // Only a deliberate, fast swipe receives momentum. Slow/controlled drags
+    // stop exactly where the user's pointer is released.
     const runInertia = () => {
       velocity *= 0.92;
-      if (Math.abs(velocity) < 0.12) {
+      if (Math.abs(velocity) < 0.18) {
         inertiaFrame = 0;
         return;
       }
@@ -267,65 +310,117 @@
     }, true);
 
     strip.addEventListener('pointerdown', event => {
-      // Only a primary/left mouse press initiates a mouse drag. Touch keeps
-      // the browser's native swipe behavior and right-click remains untouched.
-      if (event.pointerType !== 'mouse' || event.button !== 0 || !event.isPrimary) return;
+      const isMouse = event.pointerType === 'mouse';
+      const isTouch = event.pointerType === 'touch' || event.pointerType === 'pen';
+      if ((!isMouse && !isTouch) || !event.isPrimary || (isMouse && event.button !== 0)) return;
       if (event.target.closest('button, input, textarea, select, [data-no-drag]')) return;
+
       stopMotion();
       pointerId = event.pointerId;
+      pressedCard = event.target.closest('.owl-element');
       startX = lastX = event.clientX;
-      startScroll = desiredScroll = strip.scrollLeft;
+      startY = event.clientY;
+      startScroll = strip.scrollLeft;
       lastTime = performance.now();
       velocity = 0;
       moved = false;
+      axis = null;
       strip.classList.add('is-grabbing');
-      strip.setPointerCapture?.(pointerId);
+      // Capture immediately, even when the gesture starts on an image/link.
+      // This keeps move/up events routed to the same carousel handler.
+      try {
+        if (strip.setPointerCapture && event.pointerId != null) {
+          strip.setPointerCapture(event.pointerId);
+        }
+      } catch (_) {
+        // Some browsers may reject capture for an already-cancelled pointer.
+      }
     });
 
     strip.addEventListener('pointermove', event => {
       if (pointerId === null || event.pointerId !== pointerId) return;
-      const delta = event.clientX - startX;
-      if (Math.abs(delta) > 5) moved = true;
-      if (!moved) return;
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+
+      // Decide gesture direction before taking control. Vertical swipes remain
+      // native page scrolling; horizontal swipes become carousel dragging.
+      if (!axis && (Math.abs(deltaX) > 7 || Math.abs(deltaY) > 7)) {
+        axis = Math.abs(deltaX) > Math.abs(deltaY) * 1.15 ? 'x' : 'y';
+        if (axis === 'x') {
+          moved = true;
+          strip.classList.add('is-grabbing');
+        }
+      }
+      if (axis !== 'x') return;
+
       event.preventDefault();
-      desiredScroll = startScroll - delta;
+      // Follow the pointer 1:1: no easing/lag between the finger and strip.
+      strip.scrollLeft = startScroll - deltaX;
       const now = performance.now();
       const elapsed = Math.max(1, now - lastTime);
       const instantVelocity = (lastX - event.clientX) / elapsed * 16;
-      velocity = velocity * 0.55 + instantVelocity * 0.45;
+      // Track recent movement rather than the entire gesture so a quick
+      // release flick feels natural, while slow precision movement settles.
+      velocity = velocity * 0.35 + instantVelocity * 0.65;
       lastX = event.clientX;
       lastTime = now;
-      if (!dragFrame) dragFrame = requestAnimationFrame(animateDrag);
     });
 
     const finish = event => {
       if (pointerId === null || (event && event.pointerId !== pointerId)) return;
-      const didMove = moved;
+      const didDrag = moved && axis === 'x';
       pointerId = null;
       strip.classList.remove('is-grabbing');
-      if (didMove) {
-        // Suppress only the click generated by a completed drag. A stationary
-        // left-click on a title remains an ordinary link activation.
-        strip.dataset.dsSuppressClick = '1';
-        setTimeout(() => { delete strip.dataset.dsSuppressClick; }, 0);
-        if (dragFrame) {
-          cancelAnimationFrame(dragFrame);
-          dragFrame = 0;
-          strip.scrollLeft = desiredScroll;
+
+      if (didDrag) {
+        // Consume the synthetic click after a swipe/drag, never the click from
+        // a stationary tap. A short window covers delayed mobile click events.
+        suppressNextClick = true;
+        clearTimeout(suppressTimer);
+        suppressTimer = setTimeout(() => { suppressNextClick = false; }, 650);
+        // Threshold prevents extra travel when the user deliberately releases
+        // at a chosen card/position. A genuine flick gets a short glide.
+        if (Math.abs(velocity) > 1.35) {
+          velocity = Math.max(-42, Math.min(42, velocity));
+          inertiaFrame = requestAnimationFrame(runInertia);
         }
-        if (Math.abs(velocity) > 0.5) inertiaFrame = requestAnimationFrame(runInertia);
       }
+      moved = false;
+      axis = null;
     };
 
     strip.addEventListener('pointerup', finish);
     strip.addEventListener('pointercancel', finish);
     strip.addEventListener('lostpointercapture', finish);
+
+    // Explicit card activation restores reliable navigation on both desktop
+    // and touch devices, including cards cloned for the infinite featured loop.
     strip.addEventListener('click', event => {
-      if (strip.dataset.dsSuppressClick === '1') {
+      if (suppressNextClick) {
+        suppressNextClick = false;
+        pressedCard = null;
+        clearTimeout(suppressTimer);
         event.preventDefault();
         event.stopPropagation();
         event.stopImmediatePropagation();
+        return;
       }
+
+      // Leave keyboard activation, modified clicks and non-primary buttons
+      // to the browser so accessibility and open-in-new-tab behavior survive.
+      if (event.detail === 0 || event.button !== 0 ||
+          event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      if (event.target.closest('button, input, textarea, select, [data-no-navigate]')) return;
+
+      const card = event.target.closest('.owl-element') || pressedCard;
+      pressedCard = null;
+      if (!card || !strip.contains(card)) return;
+      const anchor = event.target.closest('a[href]') || card.querySelector('a[href]');
+      if (!anchor) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      window.location.assign(anchor.href);
     }, true);
   }
 

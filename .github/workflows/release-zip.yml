@@ -1,0 +1,58 @@
+name: Build extension ZIP for major/minor releases
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package-extension:
+    name: Package and upload extension ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate release tag (X.Y.0 only)
+        id: validate
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        shell: bash
+        run: |
+          if [[ "$RELEASE_TAG" =~ ^v?[0-9]+\.[0-9]+\.0$ ]]; then
+            echo "eligible=true" >> "$GITHUB_OUTPUT"
+            echo "Release tag $RELEASE_TAG matches X.Y.0."
+          else
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+            echo "Release tag $RELEASE_TAG does not match X.Y.0; skipping ZIP upload."
+          fi
+
+      - name: Check out release source
+        if: steps.validate.outputs.eligible == 'true'
+        uses: actions/checkout@v4
+
+      - name: Create extension ZIP
+        if: steps.validate.outputs.eligible == 'true'
+        id: package
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        shell: bash
+        run: |
+          VERSION="${RELEASE_TAG#v}"
+          ARCHIVE="Demonicscans-UX-v${VERSION}.zip"
+          zip -r "$ARCHIVE" . \
+            -x '.git/*' \
+               '.github/*' \
+               '*/.DS_Store' \
+               '.DS_Store' \
+               "$ARCHIVE"
+          unzip -t "$ARCHIVE"
+          echo "archive=$ARCHIVE" >> "$GITHUB_OUTPUT"
+
+      - name: Upload ZIP to GitHub Release
+        if: steps.validate.outputs.eligible == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          ARCHIVE: ${{ steps.package.outputs.archive }}
+        shell: bash
+        run: gh release upload "$RELEASE_TAG" "$ARCHIVE" --clobber

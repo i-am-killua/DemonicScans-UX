@@ -824,3 +824,61 @@ body{margin:0!important}
 @media (max-width: 600px) {
   .ds-home-side > .ds-random-pick { height: 320px !important; min-height: 320px !important; }
 }
+
+
+/* Mobile layout safeguards */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  #wrapperFst, #wrapperFst > .main-width:first-child { width: 100% !important; max-width: 100% !important; padding-inline: 12px !important; box-sizing: border-box !important; }
+  .ds-home-layout { display: grid !important; grid-template-columns: minmax(0,1fr) !important; gap: 20px !important; width: 100% !important; }
+  .ds-home-main, .ds-home-side, .ds-home-main > .main-width, .ds-home-main > .ds-section, .ds-home-side > .ds-side-card { width: 100% !important; min-width: 0 !important; max-width: 100% !important; }
+  .ds-featured-strip { overflow: hidden !important; }
+  .ds-featured-strip .section-title, .ds-home-main .section-title { font-size: clamp(18px, 5vw, 23px) !important; }
+  .ds-home-main .updates-big-container { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 11px !important; }
+  .ds-home-main .owl-element { min-width: 0 !important; }
+  .ds-home-main .owl-element img, .ds-featured-strip .owl-element img { max-width: 100% !important; }
+  .ds-popular-item { min-width: 0 !important; }
+  .ds-editor-pick { min-width: 0 !important; }
+}
+@media (max-width: 420px) {
+  #wrapperFst, #wrapperFst > .main-width:first-child { padding-inline: 9px !important; }
+  .ds-home-main .updates-big-container { gap: 8px !important; }
+  .ds-featured-strip .owl-element h1 { font-size: 12px !important; }
+}
+
+
+/* v1.5.13: touch-driven horizontal carousel gestures and reliable card clicks */
+.ds-featured-strip .ds-featured-track,
+.ds-home-main .ds-native-discovery-track {
+  touch-action: pan-y pinch-zoom !important;
+}
+.ds-featured-strip .ds-featured-track > .owl-element,
+.ds-home-main .ds-native-discovery-track > .owl-element {
+  pointer-events: auto !important;
+}
+.ds-featured-strip .ds-featured-track a,
+.ds-home-main .ds-native-discovery-track a {
+  pointer-events: auto !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* v1.5.15: make tile-started drags behave exactly like gap-started drags */
+.ds-drag-scroll,
+.ds-drag-scroll * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+.ds-drag-scroll img,
+.ds-drag-scroll a,
+.ds-drag-scroll .owl-element {
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+}
+.ds-drag-scroll img {
+  pointer-events: none !important;
+}
+.ds-drag-scroll a,
+.ds-drag-scroll .owl-element {
+  touch-action: pan-y pinch-zoom !important;
+}

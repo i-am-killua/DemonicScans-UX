@@ -242,3 +242,93 @@
   #filters-container.ds-advanced-filters { align-items: stretch !important; }
   #filters-container .ds-select-wrap { flex: 1 1 100% !important; }
 }
+
+
+@media (max-width: 760px) {
+  #browse-container, #browse-form, #browse-form form { width: 100% !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important; }
+  #browse-container { padding-inline: 12px !important; }
+  #browse-form li { min-width: 0 !important; }
+  #genres-container { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 8px !important; }
+  #genres-container .ds-genre-item, .ds-genre-chip { min-width: 0 !important; max-width: 100% !important; }
+  .ds-advanced-filters { display: flex !important; flex-wrap: wrap !important; gap: 10px !important; }
+  .ds-select-wrap { min-width: 0 !important; max-width: 100% !important; }
+  .ds-advanced-pagination { flex-wrap: wrap !important; justify-content: center !important; }
+  .advanced-element { min-width: 0 !important; }
+  .advanced-element img { max-width: 100% !important; height: auto !important; }
+}
+@media (max-width: 380px) { #genres-container { grid-template-columns: minmax(0,1fr) !important; } }
+
+
+/* v1.5.12: compact mobile browse layout */
+@media (max-width: 760px) {
+  /* Let genre chips flow naturally across each row instead of forcing
+     a two-column list. This keeps short labels compact and wraps long ones. */
+  #genres-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 9px !important;
+    width: 100% !important;
+  }
+
+  #genres-container > li,
+  #genres-container .ds-genre-item {
+    display: block !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  #genres-container .ds-genre-chip {
+    display: inline-flex !important;
+    width: auto !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+  }
+
+  /* Two comic cards per row on mobile. */
+  #advanced-content {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    justify-items: stretch !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #advanced-content > .advanced-element,
+  #advanced-content .advanced-element {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 5px !important;
+    box-sizing: border-box !important;
+  }
+
+  #advanced-content .advanced-element img {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+}
+
+@media (max-width: 380px) {
+  /* Keep the two-up comic grid even on narrow phones. */
+  #advanced-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+  #advanced-content .advanced-element {
+    padding: 3px !important;
+  }
+  #genres-container {
+    gap: 7px !important;
+  }
+}

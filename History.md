@@ -1,6 +1,6 @@
 # Demonicscans UX
 
-**Current version: 1.5.10**
+**Current version: 1.6.0**
 
 ## Bookmarks rendering fix (v1.5.9)
 
@@ -299,3 +299,79 @@ To update, reload the extension at `chrome://extensions`, then hard-refresh `/bo
 ## v1.5.10
 - Removed the redundant “Hide Caught Up” toggle; the Reading status filter already excludes caught-up bookmarks.
 - Reflowed the toolbar to keep Sort, Status, and Search aligned without the removed control.
+
+
+## v1.6.0 — Responsive browsing, carousel interactions, comments coverage, and chapter reader controls
+
+This release consolidates the mobile and interaction improvements made after v1.5.10.
+
+### Mobile and responsive UI
+- Refines the responsive layout across the homepage, navigation, Advanced Search, title listings, and bookmarks.
+- Advanced Search genre choices use a compact multi-column arrangement on mobile, and comic cards display two per row rather than one per row.
+- The mobile top navigation keeps the site logo/name on the left and the profile and hamburger controls on the right. Remaining navigation links are placed inside the collapsible menu.
+- Restores mobile search input interaction, including focus, caret, touch input, and the original search form/autocomplete structure.
+
+### Homepage carousel interactions
+- Restores click-through behaviour so clicking or tapping a comic opens that comic's page.
+- Supports grab-and-drag/swipe interaction across both comic tiles and the gaps between tiles.
+- Disables native image/link dragging from interfering with pointer movement.
+- Uses direct pointer tracking for responsive dragging, with additional momentum after a fast swipe while preserving deliberate release positions.
+
+### Comments coverage
+- Enables the custom comments UI on manga detail routes matching `/manga/<slug>` in addition to the existing title and chapter routes.
+- Extends the background route handling so the site's original comments assets are handled consistently on those manga pages.
+
+### Chapter reader controls
+- Keeps the top navigation and Go to Top arrow visible when a chapter page first opens.
+- Collapses both controls when the first chapter image reaches the top edge of the viewport.
+- Restores both controls when scrolling back above the first image boundary.
+- Shows both controls again once the last chapter image has completely passed the viewport's bottom edge; scrolling back into the chapter returns to the normal reading state.
+- Preserves the manual chapter-image click toggle as an additional way to show or hide the controls.
+- Keeps the Go to Top arrow above comment avatars.
+
+### Package and verification
+- Updates the extension manifest version to `1.6.0`.
+- Refreshes `README.md` with the current feature overview, installation/update instructions, project structure, and troubleshooting notes.
+- JavaScript syntax and archive integrity are checked as part of packaging. Device-specific visual and interaction behaviour should still be verified in a live browser.
+
+
+
+## v1.6.1 — Comment profanity filter
+
+- Added a **Remove Profanity** button immediately to the left of **Post comment** in the custom comment editor.
+- Added an English profanity/NSFW wordlist containing words and phrases from the free `dsojevic/profanity-list` project (809 listed matches).
+- Added matching for punctuation/spacing inserted between letters and common leetspeak substitutions, with word-boundary checks to reduce accidental matches inside unrelated words.
+- Matching characters are replaced with `*`; punctuation and unaffected text are preserved. The filtered draft remains editable and is not submitted automatically.
+- Added an extension service-worker fetch and content-script message bridge. The webpage itself never fetches the external dictionary, avoiding page-origin CORS restrictions.
+- Added `raw.githubusercontent.com` host permission and `storage` permission; the dictionary is cached locally.
+- Preserved existing comment posting, editing, drafts, formatting, image uploads, GIF picker, and replies.
+- Added third-party attribution and MIT license notice in `THIRD_PARTY_NOTICES.md`.
+
+
+
+## v1.6.2 — Partial profanity masking and false-positive handling
+
+- Changed profanity masking from fully obscuring every matched term to partial masking.
+- Standalone profanity terms of 4 characters or fewer have their latter half replaced with asterisks (for example, `fuck` → `fu**`, `ass` → `a**`).
+- Longer standalone terms have their middle half masked (for example, `nigger` → `ni**er`, `whore` → `wh**e`).
+- For longer words containing profanity, the filter searches for individual profanity terms inside the word and masks only the embedded term (for example, `motherfucker` → `motherfu**er`, `cheapslut` → `cheapsl**`).
+- Added an innocent-word/name exception list for common incidental matches, including `Cassie` → `C@ssie`, to reduce false-positive asterisk masking.
+- Preserved the free dictionary source, extension background fetch, local cache, and CORS-safe message bridge.
+
+
+## v1.6.3 — Layered profanity scanner integration
+
+- Replaced the earlier inline comment profanity matcher with the standalone `assets/profanity.js` multi-layer scanner.
+- Integrated the structured dictionary supplied for this update, bundled locally as `assets/profanity-dictionary.js`.
+- Added exact/phrase matching, conservative leetspeak alternatives, curated embedded-root matching, repeated-character normalization, and punctuation/zero-width/spacing normalization.
+- Preserved the requested partial masking rules, including `fuck` → `fu**`, `ass` → `a**`, `motherfucker` → `motherfu**er`, and `cheapslut` → `cheapsl**`.
+- Added explicit incidental-word substitutions such as `Cassie` → `C@ssie` to reduce false-positive masking.
+- The dictionary is now bundled and loaded locally; removed the runtime dictionary fetch and page-message bridge, eliminating external dictionary CORS/network dependencies.
+- Preserved the existing `Remove Profanity` button placement, comment editing flow, and manual review before posting.
+
+
+## Project documentation and release automation
+
+- Simplified `README.md` into a short project overview, feature-category list, installation guide, development test command, and project map.
+- Added `Features.md` as the detailed guide to homepage discovery, navigation/search, browsing/bookmarks, comments and moderation, chapter reader controls, and responsive design.
+- Added `.github/workflows/release-zip.yml`. When a GitHub Release is published with a tag matching `vX.Y.0` (for example, `v1.7.0`), GitHub Actions validates the tag, packages the extension, checks the ZIP archive, and uploads it to that release. Other version formats, including patch releases such as `v1.6.4`, are skipped.

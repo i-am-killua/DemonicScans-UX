@@ -1,51 +1,41 @@
 # Demonicscans UX
 
-A Chrome extension that redesigns and improves the user interface of [Demonicscans](https://demonicscans.org/), introducing a modern dark-and-orange theme, improved navigation, enhanced content browsing, and a custom comments interface.
+A Chrome/Chromium extension that improves the Demonicscans browsing and reading experience with a dark-and-orange interface and mobile-friendly interactions.
 
-## Features
+**Current version:** 1.6.3
 
-- **Homepage Redesign** – Modern layout, featured carousel, trending sections, improved content cards, and custom pagination.
-- **Custom Navigation** – Responsive navigation bar with integrated search, profile dropdown, and quick links.
-- **Comments System** – Completely redesigned comments interface with replies, reactions, and GIF picker.
-- **Bookmarks Manager** – Improved bookmark layout with sorting, status filters, and title/genre search.
-- **Advanced Search** – Redesigned genre selectors, dropdowns, and pagination.
-- **New Titles** – Improved title listings with responsive grids and pagination.
-- **Terms & Conditions** – Redesigned page matching the extension's overall theme.
-- **Responsive Design** – Optimized layouts and interactions for different screen sizes.
+## Feature categories
+
+- **Homepage & discovery:** Improves homepage sections, comic carousels, cards, and pagination.
+- **Navigation & search:** Adds responsive navigation, a collapsible mobile menu, profile controls, and search styling.
+- **Browsing & library:** Enhances Advanced Search, genre selection, title listings, and bookmarks.
+- **Comments & moderation:** Provides an enhanced comments interface, reactions, GIF picker, and profanity removal.
+- **Chapter reading:** Adds reader-focused navigation controls and chapter image interactions.
+- **Visual design & responsive layout:** Applies consistent styling and adapts key interfaces for mobile and desktop.
+
+For feature details and interaction behaviour, see **[Features.md](Features.md)**. For version changes, see **[History.md](History.md)**.
 
 ## Installation
 
-1. Download or clone this repository.
-2. Open `chrome://extensions` in Chrome.
-3. Enable **Developer mode**.
-4. Click **Load unpacked**.
-5. Select the extension's folder.
-6. Open or refresh [Demonicscans](https://demonicscans.org/).
-
-For updates, reload the extension from the Extensions page and hard-refresh the website using `Ctrl + Shift + R`.
+1. Download and extract the extension ZIP from [GitHub Releases](../../releases).
+2. Open `chrome://extensions` (or `edge://extensions`) and enable **Developer mode**.
+3. Click **Load unpacked** and select the extracted folder containing `manifest.json`.
+4. Open or refresh [Demonicscans](https://demonicscans.org/).
 
 ## Compatibility
 
-- Google Chrome
-- Microsoft Edge and other Chromium-based browsers
+Chrome, Microsoft Edge, and other Chromium-based browsers that support Manifest V3.
 
-## Disclaimer
+## Development
 
-This is an unofficial, independently developed UI enhancement extension. It is not affiliated with or endorsed by Demonicscans.
+Run the profanity scanner regression tests with Node.js:
 
-## Contributing
+```bash
+node tests/profanity-smoke.cjs
+```
 
-Contributions, suggestions, and bug reports are welcome!
+GitHub Actions automatically attaches an extension ZIP when a GitHub Release is published with a `vX.Y.0` tag. See [the release workflow](.github/workflows/release-zip.yml).
 
-If you'd like to contribute:
+## License and disclaimer
 
-1. Fork this repository.
-2. Create a new branch for your changes.
-3. Make your improvements or fixes.
-4. Submit a Pull Request with a clear description of your changes.
-
-For bugs or feature suggestions, feel free to open an Issue.
-
-## License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+This unofficial project is not affiliated with or endorsed by Demonicscans. Licensed under the [MIT License](LICENSE).
