@@ -107,3 +107,4 @@ async function restoreOpenTabs() {
 chrome.runtime.onInstalled.addListener(restoreOpenTabs);
 chrome.runtime.onStartup.addListener(restoreOpenTabs);
 restoreOpenTabs();
+

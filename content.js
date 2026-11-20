@@ -15,6 +15,7 @@
     return;
   }
 
+
   let replacementStarted = false;
   let observer;
 
@@ -84,6 +85,8 @@
       addStylesheet();
 
       // Preserve dependency order: the GIF picker registers its API before the widget uses it.
+      await loadScript('assets/profanity.js');
+      await loadScript('assets/profanity-dictionary.js');
       await loadScript('assets/comments_gif_picker.js');
       await loadScript('assets/comments_widget.js');
 

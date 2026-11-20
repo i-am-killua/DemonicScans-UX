@@ -2,7 +2,7 @@
 
 A Chrome extension that redesigns and improves the interface of [Demonicscans](https://demonicscans.org/). It adds a dark-and-orange visual theme, responsive navigation, improved browsing and discovery layouts, interactive homepage carousels, and a custom comments interface.
 
-**Current release: 1.6.0**
+**Current release: 1.6.3**
 
 ## Features
 
@@ -24,6 +24,9 @@ A Chrome extension that redesigns and improves the interface of [Demonicscans](h
 - **Terms & Conditions** — page styling that matches the extension theme.
 
 ### Comments
+- **Layered profanity scanner** — adds a `Remove Profanity` action immediately to the left of `Post comment`. The standalone `assets/profanity.js` engine performs exact/phrase matching, conservative leetspeak alternatives, curated embedded-word checks, repeated-character normalization, and punctuation/zero-width/spacing normalization. It reports matched entries and scan layers for diagnostics.
+- **Partial masking and false-positive handling** — short standalone terms have their latter half masked (for example, `fuck` → `fu**`, `ass` → `a**`); longer terms have their middle portion masked (for example, `nigger` → `ni**er`, `whore` → `wh**e`). Embedded terms are masked within their containing word (for example, `motherfucker` → `motherfu**er`, `cheapslut` → `cheapsl**`). Known incidental words such as `Cassie` are cleaned with a character substitution (`C@ssie`) rather than asterisk masking.
+- **Local dictionary and CORS safety** — the supplied structured English dictionary is bundled as `assets/profanity-dictionary.js` and loaded locally by the extension. The comment page makes no third-party dictionary request, so dictionary loading does not depend on network availability or page-origin CORS. Dictionary updates can be shipped with a later extension release.
 - **Custom comments interface** — replaces the site's original comments section on supported title and chapter pages with the extension's local widget, including replies, reactions, and the GIF picker.
 - **Manga detail pages** — the custom comments UI is also enabled on `/manga/<slug>` routes.
 
@@ -72,9 +75,22 @@ Do not keep multiple copies of the extension enabled at the same time.
 - `assets/bookmarks-page.js` / `assets/bookmarks-page.css` — bookmarks page layout and controls.
 - `assets/chapter-reader-ui.js` — chapter image boundary detection and reader-control visibility.
 - `assets/comments_widget.html`, `assets/comments_widget.css`, `assets/comments_widget.js`, `assets/comments_gif_picker.js` — custom comments widget.
+- `assets/profanity.js` and `assets/profanity-dictionary.js` — layered profanity scanner and bundled structured dictionary.
+- `tests/profanity-smoke.cjs` — Node.js regression suite for 50 words, 100 comments, and masking examples.
 - `assets/terms-and-conditions.css` — Terms & Conditions page styling.
 - `README.md` — project overview and installation instructions.
 - `History.md` — release history.
+- `THIRD_PARTY_NOTICES.md` — third-party data attribution and license notices.
+
+## Local profanity scanner tests
+
+Run the scanner regression suite from the extracted project root with Node.js:
+
+```bash
+node tests/profanity-smoke.cjs
+```
+
+The suite checks 50 dictionary words, 50 profane comments, 50 clean comments, and representative masking/obfuscation cases.
 
 ## Troubleshooting
 

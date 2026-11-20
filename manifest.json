@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Demonicscans UX",
-  "version": "1.6.0",
+  "version": "1.6.3",
   "description": "A Chrome extension that redesigns and improves the user interface of Demonicscans, introducing a modern dark-and-orange theme, improved navigation, enhanced content browsing, and a custom comments interface.",
   "permissions": [
     "declarativeNetRequestWithHostAccess",
@@ -85,7 +85,9 @@
         "assets/advanced-search.css",
         "assets/advanced-select.js",
         "assets/bookmarks-page.css",
-        "assets/bookmarks-page.js"
+        "assets/bookmarks-page.js",
+        "assets/profanity.js",
+        "assets/profanity-dictionary.js"
       ],
       "matches": [
         "https://demonicscans.org/*"

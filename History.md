@@ -334,3 +334,37 @@ This release consolidates the mobile and interaction improvements made after v1.
 - Refreshes `README.md` with the current feature overview, installation/update instructions, project structure, and troubleshooting notes.
 - JavaScript syntax and archive integrity are checked as part of packaging. Device-specific visual and interaction behaviour should still be verified in a live browser.
 
+
+
+## v1.6.1 — Comment profanity filter
+
+- Added a **Remove Profanity** button immediately to the left of **Post comment** in the custom comment editor.
+- Added an English profanity/NSFW wordlist containing words and phrases from the free `dsojevic/profanity-list` project (809 listed matches).
+- Added matching for punctuation/spacing inserted between letters and common leetspeak substitutions, with word-boundary checks to reduce accidental matches inside unrelated words.
+- Matching characters are replaced with `*`; punctuation and unaffected text are preserved. The filtered draft remains editable and is not submitted automatically.
+- Added an extension service-worker fetch and content-script message bridge. The webpage itself never fetches the external dictionary, avoiding page-origin CORS restrictions.
+- Added `raw.githubusercontent.com` host permission and `storage` permission; the dictionary is cached locally.
+- Preserved existing comment posting, editing, drafts, formatting, image uploads, GIF picker, and replies.
+- Added third-party attribution and MIT license notice in `THIRD_PARTY_NOTICES.md`.
+
+
+
+## v1.6.2 — Partial profanity masking and false-positive handling
+
+- Changed profanity masking from fully obscuring every matched term to partial masking.
+- Standalone profanity terms of 4 characters or fewer have their latter half replaced with asterisks (for example, `fuck` → `fu**`, `ass` → `a**`).
+- Longer standalone terms have their middle half masked (for example, `nigger` → `ni**er`, `whore` → `wh**e`).
+- For longer words containing profanity, the filter searches for individual profanity terms inside the word and masks only the embedded term (for example, `motherfucker` → `motherfu**er`, `cheapslut` → `cheapsl**`).
+- Added an innocent-word/name exception list for common incidental matches, including `Cassie` → `C@ssie`, to reduce false-positive asterisk masking.
+- Preserved the free dictionary source, extension background fetch, local cache, and CORS-safe message bridge.
+
+
+## v1.6.3 — Layered profanity scanner integration
+
+- Replaced the earlier inline comment profanity matcher with the standalone `assets/profanity.js` multi-layer scanner.
+- Integrated the structured dictionary supplied for this update, bundled locally as `assets/profanity-dictionary.js`.
+- Added exact/phrase matching, conservative leetspeak alternatives, curated embedded-root matching, repeated-character normalization, and punctuation/zero-width/spacing normalization.
+- Preserved the requested partial masking rules, including `fuck` → `fu**`, `ass` → `a**`, `motherfucker` → `motherfu**er`, and `cheapslut` → `cheapsl**`.
+- Added explicit incidental-word substitutions such as `Cassie` → `C@ssie` to reduce false-positive masking.
+- The dictionary is now bundled and loaded locally; removed the runtime dictionary fetch and page-message bridge, eliminating external dictionary CORS/network dependencies.
+- Preserved the existing `Remove Profanity` button placement, comment editing flow, and manual review before posting.
