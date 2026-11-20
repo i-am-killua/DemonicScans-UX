@@ -213,3 +213,136 @@
 .ds-topbar * {
   font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif !important;
 }
+
+
+/* Responsive navigation: desktop keeps the full inline layout. */
+.ds-mobile-panel,
+.ds-mobile-tools { display: contents; }
+.ds-header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 9px; flex: 0 0 auto; }
+.ds-menu-toggle { display: none; }
+.ds-mobile-tools { align-items: center; gap: 9px; }
+@media (max-width: 820px) {
+  .ds-topbar { min-height: 64px; }
+  .ds-topbar-inner { position: relative; width: calc(100% - 28px); min-height: 64px; flex-wrap: nowrap; gap: 12px; padding: 8px 0; }
+  .ds-brand { min-width: 0; flex: 1 1 auto; }
+  .ds-brand-copy small { display: none; }
+  .ds-mobile-panel { display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 10001; padding: 12px; border: 1px solid rgba(255,255,255,.18); border-radius: 15px; background: #211710; box-shadow: 0 18px 40px #0009; }
+  .ds-mobile-panel.is-open { display: flex; flex-direction: column; gap: 12px; }
+  .ds-primary-links { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 5px; width: 100%; white-space: normal; }
+  .ds-primary-links a { justify-content: flex-start; min-height: 44px; padding: 0 12px; border-radius: 9px; font-size: 14px; }
+  .ds-mobile-tools { display: flex; width: 100%; align-items: center; gap: 9px; }
+  .ds-search-slot { flex: 1 1 auto; min-width: 0; }
+  .ds-nav-search { width: 100%; height: 43px; }
+  .ds-nav-search #resultbox { width: 100% !important; max-width: calc(100vw - 52px); }
+  .ds-header-actions { gap: 8px; }
+  .ds-profile-trigger { width: 42px; min-width: 42px; height: 42px; padding: 0; }
+  .ds-profile-chevron { display: none; }
+  .ds-menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; padding: 0; border: 1px solid rgba(255,255,255,.24); border-radius: 12px; background: rgba(91,43,12,.24); color: #fff; cursor: pointer; }
+  .ds-menu-toggle svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ds-menu-close-icon { display: none; }
+  .ds-menu-toggle[aria-expanded="true"] .ds-menu-open-icon { display: none; }
+  .ds-menu-toggle[aria-expanded="true"] .ds-menu-close-icon { display: block; }
+  .ds-menu-toggle:focus-visible, .ds-profile-trigger:focus-visible, .ds-primary-links a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+}
+@media (max-width: 380px) {
+  .ds-topbar-inner { width: calc(100% - 20px); }
+  .ds-brand { gap: 8px; }
+  .ds-brand-copy strong { font-size: 16px; }
+  .ds-brand-logo { flex-basis: 34px; width: 34px; height: 34px; }
+  .ds-header-actions { gap: 6px; }
+  .ds-profile-trigger, .ds-menu-toggle { width: 39px; min-width: 39px; height: 39px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-topbar *, .ds-topbar *::before, .ds-topbar *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+
+/* v1.5.16: restore reliable mobile search focus, caret and keyboard input */
+.ds-nav-search,
+.ds-nav-search form {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto !important;
+}
+.ds-nav-search-icon {
+  pointer-events: none !important;
+  flex: 0 0 auto;
+}
+.ds-nav-search #header-search-input {
+  display: block !important;
+  position: relative !important;
+  z-index: 3 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation !important;
+  caret-color: #fff !important;
+}
+@media (max-width: 820px) {
+  .ds-mobile-panel.is-open .ds-mobile-tools,
+  .ds-mobile-panel.is-open .ds-search-slot,
+  .ds-mobile-panel.is-open .ds-nav-search {
+    position: relative !important;
+    z-index: 10002 !important;
+    pointer-events: auto !important;
+  }
+  .ds-mobile-panel.is-open .ds-nav-search #header-search-input {
+    min-height: 41px !important;
+    font-size: 16px !important; /* prevents mobile browser zoom on focus */
+    cursor: text !important;
+  }
+}
+
+
+/* ===== Chapter reader: first-image-edge navigation controls ===== */
+html.ds-reader-page .ds-topbar {
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  z-index: 10040 !important;
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform .22s ease, opacity .18s ease, visibility .22s ease !important;
+}
+html.ds-reader-page.ds-reader-chrome-collapsed .ds-topbar {
+  transform: translateY(-110%) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html.ds-reader-page.ds-reader-chrome-visible .ds-topbar {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* The site's floating Go-to-top arrow must sit above comment avatars. */
+html.ds-reader-page [data-ds-go-top] {
+  position: fixed !important;
+  z-index: 10060 !important;
+  transition: opacity .18s ease, visibility .22s ease, transform .22s ease !important;
+}
+html.ds-reader-page.ds-reader-chrome-collapsed [data-ds-go-top] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(8px);
+}
+html.ds-reader-page.ds-reader-chrome-visible [data-ds-go-top] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0);
+}
+html.ds-reader-page #cw-comments .avatar,
+html.ds-reader-page #cw-comments .cw-avatar {
+  position: relative;
+  z-index: 1;
+}

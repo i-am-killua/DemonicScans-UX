@@ -187,3 +187,20 @@ body:has(.ds-bookmarks-toolbar) #bookmarks-container {
 @media (prefers-reduced-motion: reduce) {
   .ds-bookmark-tags-expand svg { transition: none; }
 }
+
+
+@media (max-width: 760px) {
+  body:has(.ds-bookmarks-toolbar) #bookmarks-container { width: 100% !important; max-width: 100% !important; padding-inline: 12px !important; box-sizing: border-box !important; }
+  .ds-bookmarks-toolbar { display: flex !important; flex-direction: column !important; align-items: stretch !important; gap: 12px !important; }
+  .ds-bookmarks-controls { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 8px !important; width: 100% !important; }
+  .ds-bookmark-search { grid-column: 1 / -1 !important; width: 100% !important; min-width: 0 !important; }
+  .ds-bookmark-control { width: 100% !important; min-width: 0 !important; }
+  .ds-bookmarks-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 12px !important; }
+  .ds-bookmark-card { min-width: 0 !important; }
+  .ds-bookmark-cover, .ds-bookmark-cover img { max-width: 100% !important; }
+  .ds-bookmark-details { min-width: 0 !important; }
+  .ds-bookmark-title, .ds-bookmark-title a { overflow-wrap: anywhere !important; }
+  .ds-bookmark-chapters { display: flex !important; flex-wrap: wrap !important; gap: 6px !important; }
+  .ds-chapter-button { min-width: 0 !important; flex: 1 1 auto !important; }
+}
+@media (max-width: 380px) { .ds-bookmarks-grid { gap: 8px !important; } .ds-bookmarks-controls { grid-template-columns: minmax(0,1fr) !important; } }
