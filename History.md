@@ -1,6 +1,6 @@
 # Demonicscans UX
 
-**Current version: 1.5.10**
+**Current version: 1.6.0**
 
 ## Bookmarks rendering fix (v1.5.9)
 
@@ -299,3 +299,38 @@ To update, reload the extension at `chrome://extensions`, then hard-refresh `/bo
 ## v1.5.10
 - Removed the redundant “Hide Caught Up” toggle; the Reading status filter already excludes caught-up bookmarks.
 - Reflowed the toolbar to keep Sort, Status, and Search aligned without the removed control.
+
+
+## v1.6.0 — Responsive browsing, carousel interactions, comments coverage, and chapter reader controls
+
+This release consolidates the mobile and interaction improvements made after v1.5.10.
+
+### Mobile and responsive UI
+- Refines the responsive layout across the homepage, navigation, Advanced Search, title listings, and bookmarks.
+- Advanced Search genre choices use a compact multi-column arrangement on mobile, and comic cards display two per row rather than one per row.
+- The mobile top navigation keeps the site logo/name on the left and the profile and hamburger controls on the right. Remaining navigation links are placed inside the collapsible menu.
+- Restores mobile search input interaction, including focus, caret, touch input, and the original search form/autocomplete structure.
+
+### Homepage carousel interactions
+- Restores click-through behaviour so clicking or tapping a comic opens that comic's page.
+- Supports grab-and-drag/swipe interaction across both comic tiles and the gaps between tiles.
+- Disables native image/link dragging from interfering with pointer movement.
+- Uses direct pointer tracking for responsive dragging, with additional momentum after a fast swipe while preserving deliberate release positions.
+
+### Comments coverage
+- Enables the custom comments UI on manga detail routes matching `/manga/<slug>` in addition to the existing title and chapter routes.
+- Extends the background route handling so the site's original comments assets are handled consistently on those manga pages.
+
+### Chapter reader controls
+- Keeps the top navigation and Go to Top arrow visible when a chapter page first opens.
+- Collapses both controls when the first chapter image reaches the top edge of the viewport.
+- Restores both controls when scrolling back above the first image boundary.
+- Shows both controls again once the last chapter image has completely passed the viewport's bottom edge; scrolling back into the chapter returns to the normal reading state.
+- Preserves the manual chapter-image click toggle as an additional way to show or hide the controls.
+- Keeps the Go to Top arrow above comment avatars.
+
+### Package and verification
+- Updates the extension manifest version to `1.6.0`.
+- Refreshes `README.md` with the current feature overview, installation/update instructions, project structure, and troubleshooting notes.
+- JavaScript syntax and archive integrity are checked as part of packaging. Device-specific visual and interaction behaviour should still be verified in a live browser.
+
