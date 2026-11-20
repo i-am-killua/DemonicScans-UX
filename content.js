@@ -4,7 +4,10 @@
   const SITE_ORIGIN = 'https://demonicscans.org';
   const TARGET_PATHS = [
     /^\/title\/[^/?#]+\/$/,
-    /^\/title\/[^/?#]+\/chapter\/[^/?#]+\/1\/?$/
+    /^\/title\/[^/?#]+\/chapter\/[^/?#]+\/1\/?$/,
+    // Manga detail pages (e.g. /manga/Absolute-Regression) also host
+    // the series discussion and should use the local comments interface.
+    /^\/manga(?:\/|$)/
   ];
 
   if (location.origin !== SITE_ORIGIN ||

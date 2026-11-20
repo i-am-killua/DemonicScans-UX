@@ -77,8 +77,17 @@
     }
   }
 
+  function ensureViewportMeta() {
+    if (document.querySelector('meta[name="viewport"]')) return;
+    const meta = document.createElement('meta');
+    meta.name = 'viewport';
+    meta.content = 'width=device-width, initial-scale=1, viewport-fit=cover';
+    (document.head || document.documentElement).appendChild(meta);
+  }
+
   function mountStylesheets() {
     if (!document.documentElement) return false;
+    ensureViewportMeta();
     for (const stylesheet of stylesheets) {
       void injectStylesheet(stylesheet);
     }

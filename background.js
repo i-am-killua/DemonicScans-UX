@@ -9,7 +9,8 @@ function isTargetPage(rawUrl) {
 
     return (
       /^\/title\/[^/?#]+\/$/.test(url.pathname) ||
-      /^\/title\/[^/?#]+\/chapter\/[^/?#]+\/1\/?$/.test(url.pathname)
+      /^\/title\/[^/?#]+\/chapter\/[^/?#]+\/1\/?$/.test(url.pathname) ||
+      /^\/manga(?:\/|$)/.test(url.pathname)
     );
   } catch {
     return false;
