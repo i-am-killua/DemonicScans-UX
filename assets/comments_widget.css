@@ -2853,3 +2853,39 @@
   #cw-comments { padding-inline: 6px !important; }
   #cw-comments .reactions { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
 }
+
+
+/* Profanity helper action sits immediately before the comment submit button. */
+#cw-comments .cw-remove-profanity {
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: #242129;
+    color: var(--text);
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+}
+#cw-comments .cw-remove-profanity:hover:not(:disabled) {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+#cw-comments .cw-remove-profanity:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+#cw-comments .cw-editor-footer > div {
+    flex-wrap: wrap;
+    align-items: center;
+}
+@media (max-width: 560px) {
+    #cw-comments .cw-editor-footer > div {
+        gap: 6px;
+    }
+    #cw-comments .cw-remove-profanity {
+        padding: 8px 9px;
+        font-size: 11px;
+    }
+}

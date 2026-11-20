@@ -525,6 +525,21 @@
         textarea.dispatchEvent(new Event('input'));
         return true;
     }
+
+    const profanityScanner = (() => {
+        if (typeof window.ProfanityScanner !== 'function' ||
+            !Array.isArray(window.DS_PROFANITY_DICTIONARY)) {
+            console.error('[Demonicscans Comments] Profanity scanner or dictionary failed to load.');
+            return null;
+        }
+        try {
+            return new window.ProfanityScanner(window.DS_PROFANITY_DICTIONARY);
+        } catch (error) {
+            console.error('[Demonicscans Comments] Could not initialize profanity scanner:', error);
+            return null;
+        }
+    })();
+
     function makeEditor(options={}) {
         const draftKey = `cw-draft-v1-${state.viewer?.id || 0}-${chapter}-${options.edit ? 'edit' + options.edit : options.replyTo || 0}`;
         const saved = store.get(draftKey, {});
@@ -644,9 +659,40 @@
         const footer = element('div', 'cw-editor-footer')
           , counter = element('small', 'character-count')
           , buttons = element('div');
+        const removeProfanity = button('Remove Profanity', async () => {
+            if (!area.value.trim()) {
+                error.textContent = 'Write a comment first.';
+                return;
+            }
+            const originalLabel = removeProfanity.textContent;
+            removeProfanity.disabled = true;
+            removeProfanity.textContent = 'Checking...';
+            error.textContent = '';
+            try {
+                if (!profanityScanner) {
+                    throw new Error('The local profanity scanner could not be initialized. Refresh the page and try again.');
+                }
+                const result = profanityScanner.censor(area.value);
+                if (result.count) {
+                    area.value = result.text;
+                    area.dispatchEvent(new Event('input', { bubbles: true }));
+                    error.textContent = `Masked ${result.count} character${result.count === 1 ? '' : 's'}. Review your comment before posting.`;
+                    error.classList.remove('is-error');
+                } else {
+                    error.textContent = 'No matching profanity was found.';
+                    error.classList.remove('is-error');
+                }
+            } catch (filterError) {
+                error.textContent = filterError.message || 'The profanity filter could not be loaded.';
+                error.classList.add('is-error');
+            } finally {
+                removeProfanity.disabled = false;
+                removeProfanity.textContent = originalLabel;
+            }
+        }, 'cw-remove-profanity');
         const submit = element('button', 'cw-submit', options.edit ? 'Save changes' : 'Post comment');
         submit.type = 'submit';
-        buttons.append(counter, submit);
+        buttons.append(counter, removeProfanity, submit);
         if (options.onCancel)
             buttons.append(button('Cancel', options.onCancel, 'quiet-btn'));
         const error = element('p', 'cw-editor-error');
